@@ -1,14 +1,17 @@
 FROM golang:alpine
 
-RUN apk add --update git bash openssl
-RUN go get github.com/mitchellh/gox
-RUN go get github.com/hashicorp/packer
+ENV PACKER_VERSION=1.3.4
+ENV PACKER_SHA256SUM=73074f4fa07fe15b5d65a694ee7afae2d1a64f0287e6b40897adee77a7afc552
 
-WORKDIR $GOPATH/src/github.com/hashicorp/packer
+RUN apk add --update git bash wget openssl
 
-RUN /bin/bash scripts/build.sh
+ADD https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip ./
+ADD https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_SHA256SUMS ./
 
-WORKDIR $GOPATH
+RUN sed -i '/.*linux_amd64.zip/!d' packer_${PACKER_VERSION}_SHA256SUMS
+RUN sha256sum -cs packer_${PACKER_VERSION}_SHA256SUMS
+RUN unzip packer_${PACKER_VERSION}_linux_amd64.zip -d /bin
+RUN rm -f packer_${PACKER_VERSION}_linux_amd64.zip
 
 RUN apk update
 RUN apk add python3 py-pip jq gcc python3-dev musl-dev libffi-dev build-base make openssl-dev
