@@ -22,5 +22,9 @@ RUN pip3 install --upgrade pip
 RUN pip3 install --upgrade ansible
 RUN pip3 install cryptography==2.4.2
 
+RUN apk add openssh
+RUN echo "Host *" >> /etc/ssh/ssh_config
+RUN echo "    SendEnv LANG LC_*" >> /etc/ssh/ssh_config
+
 USER alpine
 WORKDIR /home/alpine
