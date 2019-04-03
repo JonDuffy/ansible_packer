@@ -19,5 +19,8 @@ RUN apk update
 RUN apk add python3 py-pip jq gcc python3-dev musl-dev libffi-dev build-base make openssl-dev
 RUN pip3 install --upgrade awscli
 RUN pip3 install --upgrade pip
-RUN pip3 install --upgrade ansible==2.7.6
+RUN pip3 install --upgrade ansible
 RUN pip3 install cryptography==2.4.2
+
+USER alpine
+WORKDIR /home/alpine
