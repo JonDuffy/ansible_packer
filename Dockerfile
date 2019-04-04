@@ -5,6 +5,8 @@ env USER root
 ENV PACKER_VERSION=1.3.4
 ENV PACKER_SHA256SUM=73074f4fa07fe15b5d65a694ee7afae2d1a64f0287e6b40897adee77a7afc552
 
+RUN apk --update upgrade &&
+
 RUN apk add --update git bash wget openssl
 
 ADD https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip ./
@@ -22,7 +24,7 @@ RUN pip3 install --upgrade pip
 RUN pip3 install --upgrade ansible
 RUN pip3 install cryptography==2.6.1
 
-RUN apk add ca-certificates
+RUN apk --no-cache add ca-certificates && update-ca-certificates && ls -al /etc/ssl/
 
 RUN apk add openssh
 RUN echo "Host *" >> /etc/ssh/ssh_config
