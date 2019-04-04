@@ -20,7 +20,9 @@ RUN apk add python3 py-pip jq gcc python3-dev musl-dev libffi-dev build-base mak
 RUN pip3 install --upgrade awscli
 RUN pip3 install --upgrade pip
 RUN pip3 install --upgrade ansible
-RUN pip3 install cryptography==2.4.2
+RUN pip3 install cryptography==2.6.1
+
+RUN apk add ca-certificates
 
 RUN apk add openssh
 RUN echo "Host *" >> /etc/ssh/ssh_config
