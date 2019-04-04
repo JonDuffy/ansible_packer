@@ -26,5 +26,6 @@ RUN apk add openssh
 RUN echo "Host *" >> /etc/ssh/ssh_config
 RUN echo "    SendEnv LANG LC_*" >> /etc/ssh/ssh_config
 
+RUN addgroup -S alpine && adduser -S alpine -G alpine
 USER alpine
 WORKDIR /home/alpine
