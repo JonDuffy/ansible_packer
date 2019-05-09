@@ -1,5 +1,3 @@
 # Packer and Ansible
- 
-
-• Simple container
+• Simple container  
 • Useful for builds
